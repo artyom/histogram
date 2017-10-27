@@ -67,21 +67,21 @@ func run(w io.Writer, r io.Reader) error {
 		}
 		dev = math.Sqrt(ss / float64(len(nums)))
 	}
-	keys := make([]uint64, 0, len(bkts))
-	for k := range bkts {
-		keys = append(keys, k)
-	}
-	sort.Slice(keys, func(i, j int) bool { return keys[i] < keys[j] })
 	tw := tabwriter.NewWriter(w, 0, 8, 3, ' ', tabwriter.AlignRight)
 	fmt.Fprintf(tw, "min:%.2f mean:%.2f median:%.2f max:%.2f stddev:%.2f cnt:%v\n",
 		min, mean, med, max, dev, cnt)
 	fmt.Fprint(tw, "bkt\t"+strings.Repeat("-", 50)+"\tcnt\t\n")
-	for _, k := range keys {
-		hlen := bkts[k] * 100 / cnt / 2
-		if hlen == 0 {
+	for k := uint64(0); len(bkts) > 0; {
+		c := bkts[k]
+		delete(bkts, k)
+		hlen := c * 100 / cnt / 2
+		if c > 0 && hlen == 0 {
 			hlen = 1
 		}
-		fmt.Fprintf(tw, "%d\t%s\t%d\t\n", k, strings.Repeat("*", hlen), bkts[k])
+		fmt.Fprintf(tw, "%d\t%s\t%d\t\n", k, strings.Repeat("*", hlen), c)
+		if k *= 2; k == 0 {
+			k = 1
+		}
 	}
 	return tw.Flush()
 }
