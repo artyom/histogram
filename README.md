@@ -5,7 +5,7 @@ Inspired by mmhistogram tool from https://blog.cloudflare.com/three-little-tools
 
 Example output:
 
-	min:3090.00 mean:492539.99 median:486079.50 max:989355.00 stddev:309009.12 cnt:100
+	min:3090 mean:492539.99 median:486079.50 max:989355 stddev:309009.12 cnt:100
 	      bkt   --------------------------------------------------   cnt
 		0                                                          0
 		1                                                          0

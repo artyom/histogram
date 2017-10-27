@@ -68,7 +68,7 @@ func run(w io.Writer, r io.Reader) error {
 		dev = math.Sqrt(ss / float64(len(nums)))
 	}
 	tw := tabwriter.NewWriter(w, 0, 8, 3, ' ', tabwriter.AlignRight)
-	fmt.Fprintf(tw, "min:%.2f mean:%.2f median:%.2f max:%.2f stddev:%.2f cnt:%v\n",
+	fmt.Fprintf(tw, "min:%v mean:%.2f median:%.2f max:%v stddev:%.2f cnt:%v\n",
 		min, mean, med, max, dev, cnt)
 	fmt.Fprint(tw, "bkt\t"+strings.Repeat("-", 50)+"\tcnt\t\n")
 	for k := uint64(0); len(bkts) > 0; {
